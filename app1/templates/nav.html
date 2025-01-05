@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Example</title>
+    <style>
+        {% comment %} theme 11111111111111111111 {% endcomment %}
+         body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #6A4C93; /* Elegant Purple */
+            color: #FFFFFF; /* Pure White */
+            box-shadow: 0 2px 5px rgba(106, 76, 147, 0.6); /* Soft shadow */
+            border-radius: 2px;
+        }
+        
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar .company-name {
+            font-size: 26px;
+            font-weight: bold;
+            margin-left: 10px;
+            color: #FFD700; /* Gold */
+        }
+        
+        .navbar .nav-links {
+            display: flex;
+            gap: 60px;
+            margin-left: 25px;
+        }
+        
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #FFD700; /* Gold */
+            font-size: 16px;
+            position: relative;
+            font-weight: 400;
+        }
+        
+        .navbar .nav-links a::after {
+            content: "";
+            display: block;
+            height: 2px;
+            background-color: #FFD700; /* Gold */
+            width: 0;
+            transition: width 0.3s ease;
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+        }
+        
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .navbar .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .navbar .auth-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #FFFFFF; /* Pure White */
+            background-color: #6A4C93; /* Elegant Purple */
+            border: none;
+            border-radius: 17px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .navbar .auth-buttons button:hover {
+            background-color: #4B2C7C; /* Darker Purple */
+        }
+        
+        .navbar .auth-buttons button img {
+            margin-right: 8px;
+        } 
+        
+        .icon{
+            height:15px;
+            width: 15px;
+            gap: 10px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" width="40" height="40">
+            <div class="company-name">HireSphere</div>
+        </div>
+        <div class="nav-links">
+            {% if candidate %}
+            <a href="#home"><img src={% static "img/Home.png" %} alt="1" class="icon">Home</img></a>
+            <a href="#jobs"><img src="" alt="1">Jobs</img></a>
+            <a href="#applications"><img src="" alt="1">My Applications</img></a>
+            <a href="#resume"><img src="" alt="1">My Resume</img></a>
+            <a href="#contact"><img src="" alt="1">Contact</img></a>
+            {% elif cp %}  
+            <a href="#home"><img src="" alt="1">make application </img></a>
+            <a href="#jobs"><img src="" alt="1">cp profile</img></a>
+            {% elif registereduser %}
+            <a href="#home"><img src="" alt="1">Home</img></a>
+            <a href="#contact"><img src="" alt="1">Contact</img></a>
+            <a href="#about us"><img src="" alt="1">about us</img></a>
+            {% comment %} <a href="#applications"><img src="" alt="1">My Applications</img></a>
+            <a href="#resume"><img src="" alt="1">My Resume</img></a>
+            <a href="#contact"><img src="" alt="1">Contact</img></a> {% endcomment %}
+            {% else %}
+            <a href="#home"><img src="" alt="1">Home</img></a>
+            <a href="#contact"><img src="" alt="1">Contact</img></a>
+            <a href="#about us"><img src="" alt="1">about us</img></a>
+            {% endif %}
+        </div>
+        <div class="auth-buttons">
+            {% if candidate %}
+            <a href={% url "logout" %}><button><img src="" alt=" " width="16"> Logout</button></a>
+            {% elif cp %}
+            <a href={% url "logout" %}><button><img src="" alt=" " width="16"> Logout</button></a>
+            {% elif registereduser %}
+            <a href={% url "login" %}><button><img src="login-icon.png" alt=" " width="16"> Login</button></a>
+            {% else %}
+            <a href={% url "login" %}><button><img src="login-icon.png" alt=" " width="16"> Login</button></a>
+            <a href={% url "register" %}><button><img src="register-icon.png" alt=" " width="16"> Register</button></a>
+            {% endif %}
+            
+            
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Example</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            color: #FFFFFF; /* Pure White */
+            border-bottom: 2px solid rgba(106, 76, 147, 0.6); /* Elegant Purple Border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar .company-name {
+            font-size: 26px;
+            font-weight: bold;
+            margin-left: 10px;
+            color: #FFD700; /* Gold */
+        }
+        
+        .navbar .nav-links {
+            display: flex;
+            gap: 60px;
+            margin-left: 25px;
+        }
+        
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #FFD700; /* Gold */
+            font-size: 16px;
+            position: relative;
+            font-weight: 400;
+        }
+        
+        .navbar .nav-links a::after {
+            content: "";
+            display: block;
+            height: 2px;
+            background-color: #FFD700; /* Gold */
+            width: 0;
+            transition: width 0.3s ease;
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+        }
+        
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .navbar .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .navbar .auth-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #FFFFFF; /* Pure White */
+            background-color: #6A4C93; /* Elegant Purple */
+            border: none;
+            border-radius: 17px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .navbar .auth-buttons button:hover {
+            background-color: #4B2C7C; /* Darker Purple */
+        }
+        
+        .navbar .auth-buttons button img {
+            margin-right: 8px;
+        } 
+        
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" width="40" height="40">
+            <div class="company-name">HireSphere</div>
+        </div>
+        <div class="nav-links">
+            {% if user %}
+            <a href="#home">Home</a>
+            <a href="#jobs">Jobs</a>
+            <a href="#applications">My Applications</a>
+            <a href="#resume">My Resume</a>
+            <a href="#contact">Contact</a>
+            
+            {% elif company %}  
+            <a href="#home">Hi</a>
+            <a href="#jobs">By</a>
+            {% endif %}
+        </div>
+        <div class="auth-buttons">
+            <a href={% url "login" %}><button><img src="login-icon.png" alt=" " width="16"> Login</button></a>
+            <a href={% url "register" %}><button><img src="register-icon.png" alt=" " width="16"> Register</button></a>
+            <a href={% url "logout" %}><button><img src="" alt=" " width="16"> Logout</button></a>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+ {% endcomment %}
